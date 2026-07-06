@@ -1,6 +1,6 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'Booking Item'
+@EndUserText.label: 'Booking Item 36'
 @Metadata.ignorePropagatedAnnotations: true
 define view entity zi_bkitem_tnv43 
     as select from zbkitem_tnv43 
