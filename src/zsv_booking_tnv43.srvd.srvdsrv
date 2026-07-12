@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service defination'
+define service ZSV_BOOKING_TNV43 {
+  expose ZC_BKITEM_TNV43 as BookingItemSRV;
+  expose ZC_BOOKING_T43  as BookingSRV;
+}

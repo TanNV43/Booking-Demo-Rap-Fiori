@@ -1,0 +1,45 @@
+@Metadata.layer: #CORE
+annotate entity ZC_BKITEM_TNV43
+    with 
+{
+//    @EndUserText.label: 'Booking'
+//    @UI.lineItem: [{ position: 10, importance: #HIGH }]
+//    @UI.identification: [{ position: 10 }]
+//    BookingId;
+
+    @EndUserText.label: 'Item'
+    @UI.lineItem: [{ position: 20, importance: #HIGH }]
+    @UI.identification: [{ position: 20 }]
+    ItemId;
+
+    @EndUserText.label: 'Product'
+    @UI.lineItem: [{ position: 30, importance: #HIGH }]
+    @UI.identification: [{ position: 30 }]
+    ProductId;
+
+    @EndUserText.label: 'Quantity'
+    @UI.lineItem: [{ position: 40 }]
+    @UI.identification: [{ position: 40 }]
+    Quantity;
+
+    @EndUserText.label: 'Quantity Unit'
+    @UI.lineItem: [{ position: 50 }]
+    @UI.identification: [{ position: 50 }]
+    QuantityUnit;
+
+    @EndUserText.label: 'Item Price'
+    @UI.lineItem: [{ position: 60 }]
+    @UI.identification: [{ position: 60 }]
+    ItemPrice;
+
+    @EndUserText.label: 'Currency'  
+    @UI.lineItem: [{ position: 70 }]
+    @UI.identification: [{ position: 70 }]
+    CurrencyCode;
+
+//    LastChangedAt;
+//    LocalLastChangedAt;
+    /* Associations */
+//    _bookingHeader;element_name;
+    
+}

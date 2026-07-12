@@ -1,8 +1,9 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Booking item projection view'
 @Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
 define view entity ZC_BKITEM_TNV43 
-    provider contract transactional_query
+//    provider contract transactional_query
     as projection on zi_bkitem_tnv43
 {
     key BookingId,
@@ -17,5 +18,5 @@ define view entity ZC_BKITEM_TNV43
     LastChangedAt,
     LocalLastChangedAt,
     /* Associations */
-    _bookingHeader
+    _bookingHeader: redirected to parent ZC_BOOKING_T43
 }
