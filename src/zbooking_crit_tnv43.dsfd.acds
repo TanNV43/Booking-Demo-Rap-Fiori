@@ -2,4 +2,3 @@ define scalar function ZBOOKING_CRIT_TNV43
   with parameters
     iv_status: abap.char( 1 )
   returns abap.int1
-  
