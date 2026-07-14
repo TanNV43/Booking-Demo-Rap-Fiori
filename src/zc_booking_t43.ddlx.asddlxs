@@ -23,6 +23,14 @@ annotate entity ZC_BOOKING_T43
         position: 10 
     },
     { 
+        id: 'Items',
+        purpose: #STANDARD, 
+        type: #LINEITEM_REFERENCE,
+        label: 'Items', 
+        position: 20,
+        targetElement: '_bookingItem'
+    },
+    { 
         id: 'BasicData',   
         parentId: 'General',
         type: #FIELDGROUP_REFERENCE,
@@ -39,43 +47,87 @@ annotate entity ZC_BOOKING_T43
         position: 20 
     },
     { 
-        id: 'Items',
-        purpose: #STANDARD, 
-        type: #LINEITEM_REFERENCE,
-        label: 'Items', 
-        position: 20,
-        targetElement: '_bookingItem'
+        id: 'HeaderFrice',
+        purpose: #HEADER,
+        type: #DATAPOINT_REFERENCE,
+        targetQualifier: 'FriceDP',
+        label: 'Total Frice', 
+        position: 10 
+    },
+    { 
+        id: 'HeaderStatus',
+        purpose: #HEADER,
+        type: #DATAPOINT_REFERENCE,
+        targetQualifier: 'StatusDP',
+        label: 'Status', 
+        position: 20 
+    },
+    { 
+        id: 'CustomerInfo',
+        purpose: #HEADER,
+        type: #FIELDGROUP_REFERENCE,
+        targetQualifier: 'CustomerInfo',
+        label: 'Customer Information', 
+        position: 30 
     }
     ]
 
     @EndUserText.label: 'Booking ID'
-    @UI.lineItem: [{ position: 10, importance: #HIGH }]
-    @UI.selectionField: [{ position: 10 }]
-    @UI.fieldGroup: [{ qualifier: 'BasicData', position: 10 }]
+    @UI.lineItem:       [{ position: 10, importance: #HIGH }]       // List Report
+    @UI.identification: [{ position: 10 }]                          // Field Object Page
+    @UI.selectionField: [{ position: 10 }]                          // Filterbar
+    @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 10 }]
+    @Search.defaultSearchElement: true                              // tham gia search
+    @Search.fuzzinessThreshold: 0.8
     BookingId;
     
-    @Search.defaultSearchElement: true
-    @Search.fuzzinessThreshold: 0.8
-    @UI.lineItem: [{ position: 20, importance: #HIGH }]
+    @EndUserText.label: 'Customer'
+    @UI.lineItem:       [{ position: 20, importance: #HIGH }]
+    @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 10 }, { qualifier: 'CustomerInfo', position: 10 }]
     @UI.selectionField: [{ position: 20 }]
     @Consumption.valueHelpDefinition: [{ 
         entity              : { name: 'ZI_CUSTOMER_TNV43', element: 'CustomerId' },
         useForValidation    : true
      }]
     @Consumption.filter.selectionType: #SINGLE
+    @UI.textArrangement: #TEXT_FIRST
+//    @Search.defaultSearchElement: true
+//    @Search.fuzzinessThreshold: 0.8
 //    @Consumption.filter.mandatory: true
     CustomerId;
     
-    @EndUserText.label: 'Date'
-    @UI.lineItem: [{ position: 30 }]
+    @UI.hidden: true
+    CustomerName;
+    
+    @EndUserText.label: 'E-Mail Address'
+    @UI.fieldGroup:     [{ qualifier: 'CustomerInfo', position: 20 }]
+    CustomerEmail;
+    
+    @EndUserText.label: 'City'
+    @UI.fieldGroup:     [{ qualifier: 'CustomerInfo', position: 30 }]
+    CustomerCity;
+    
+    @EndUserText.label: 'Booking Date'
+    @UI.lineItem:       [{ position: 30 }]
+    @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 20 }]
+    @UI.selectionField: [{ position: 30 }]
+    @Consumption.filter.selectionType: #INTERVAL
     BookingDate;
-//    Description;
+    
+//    OverallStatus;
+    
+    @UI.fieldGroup: [{ qualifier: 'BasicData', position: 40 }]
+    Description;
     
     @EndUserText.label: 'Total Price'
-    @UI.lineItem: [{ position: 40 }]
-    @UI.fieldGroup: [{ qualifier: 'FriceData', position: 20 }]
+    @UI.lineItem:       [{ position: 40 }]
+    @UI.fieldGroup:     [{ qualifier: 'FriceData', position: 10 }]
+    @UI.dataPoint:       { qualifier: 'PriceDP', title: 'Total Price' }
     TotalPrice;
-//    CurrencyCode;
-//    OverallStatus;
+
+    @Consumption.valueHelpDefinition: [{ entity: { name: 'I_CurrencyStdVH', element: 'Curency' }}]
+    @UI.fieldGroup:     [{ qualifier: 'FriceData', position: 20 }]
+    CurrencyCode;
+    
     
 }

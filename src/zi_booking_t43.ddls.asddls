@@ -13,6 +13,17 @@ define root view entity zi_booking_t43      as select from zbooking_t43
     total_price as TotalPrice,
     currency_code as CurrencyCode,
     overall_status as OverallStatus,
+    case overall_status
+        when 'N' then 2        -- New       -> yellow (needs attention)
+        when 'A' then 3        -- Accepted  -> green
+        when 'X' then 1        -- Cancelled -> red
+        else 0
+    end as StatusCriticality,
+        
+//    confirm_flag          as ConfirmFlag,
+//    priority              as Priority,
+//    customer_rating       as CustomerRating,
+//    completion_pct        as CompletionPct,
     
     created_by as CreatedBy,
     created_at as CreatedAt,
