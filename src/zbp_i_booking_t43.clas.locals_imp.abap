@@ -1,4 +1,5 @@
 CLASS lhc_Booking DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
   PRIVATE SECTION.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
@@ -8,6 +9,7 @@ CLASS lhc_Booking DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS earlynumbering_create_booking FOR NUMBERING
       IMPORTING entities FOR CREATE Booking.
+
 
 ENDCLASS.
 

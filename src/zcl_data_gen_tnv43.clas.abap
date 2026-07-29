@@ -122,7 +122,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
 
     lt_booking = VALUE #(
       ( client                = sy-mandt
-        booking_id            = '0000000001'
+        booking_id            = 'B0001'
         customer_id           = 'C001'
         booking_date          = lv_today
         description           = 'Flight booking - NYC to LAX'
@@ -140,7 +140,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000002'
+        booking_id            = 'B0002'
         customer_id           = 'C001'
         booking_date          = lv_today
         description           = 'Hotel booking - Manhattan'
@@ -158,7 +158,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000003'
+        booking_id            = 'B0003'
         customer_id           = 'C002'
         booking_date          = lv_today
         description           = 'Car rental - LA weekend'
@@ -176,7 +176,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000004'
+        booking_id            = 'B0004'
         customer_id           = 'C003'
         booking_date          = lv_today
         description           = 'Business trip package'
@@ -194,7 +194,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000005'
+        booking_id            = 'B0005'
         customer_id           = 'C003'
         booking_date          = lv_today
         description           = 'Vacation package - Hawaii'
@@ -213,7 +213,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
 
       " ===== CANCELLED BOOKINGS =====
       ( client                = sy-mandt
-        booking_id            = '0000000006'
+        booking_id            = 'B0006'
         customer_id           = 'C002'
         booking_date          = lv_today
         description           = 'Cancelled - Customer changed plans'
@@ -231,7 +231,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000007'
+        booking_id            = 'B0007'
         customer_id           = 'C004'
         booking_date          = lv_today
         description           = 'Cancelled - Payment failed'
@@ -249,7 +249,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000008'
+        booking_id            = 'B0008'
         customer_id           = 'C005'
         booking_date          = lv_today
         description           = 'Cancelled - Weather issue'
@@ -280,9 +280,9 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
     DATA(lv_now) = cl_abap_tstmp=>utclong2tstmp( utclong_current( ) ).
 
     lt_item = VALUE #(
-      " Items for Booking 0000000001
+      " Items for Booking B0001
       ( client                = sy-mandt
-        booking_id            = '0000000001'
+        booking_id            = 'B0001'
         item_id               = '0001'
         product_id            = 'FLIGHT-001'
         quantity              = '1.000'
@@ -293,7 +293,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000001'
+        booking_id            = 'B0001'
         item_id               = '0002'
         product_id            = 'MEAL-STD'
         quantity              = '1.000'
@@ -303,9 +303,9 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         last_changed_at       = lv_now
         local_last_changed_at = lv_now )
 
-      " Items for Booking 0000000002
+      " Items for Booking B0002
       ( client                = sy-mandt
-        booking_id            = '0000000002'
+        booking_id            = 'B0002'
         item_id               = '0001'
         product_id            = 'HOTEL-DLX'
         quantity              = '2.000'
@@ -316,7 +316,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000002'
+        booking_id            = 'B0002'
         item_id               = '0002'
         product_id            = 'BREAKFAST'
         quantity              = '2.000'
@@ -326,9 +326,9 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         last_changed_at       = lv_now
         local_last_changed_at = lv_now )
 
-      " Items for Booking 0000000003
+      " Items for Booking B0003
       ( client                = sy-mandt
-        booking_id            = '0000000003'
+        booking_id            = 'B0003'
         item_id               = '0001'
         product_id            = 'CAR-SUV'
         quantity              = '1.000'
@@ -339,7 +339,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000003'
+        booking_id            = 'B0003'
         item_id               = '0002'
         product_id            = 'INSURANCE'
         quantity              = '1.000'
@@ -349,9 +349,9 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         last_changed_at       = lv_now
         local_last_changed_at = lv_now )
 
-      " Items for Booking 0000000004
+      " Items for Booking B0004
       ( client                = sy-mandt
-        booking_id            = '0000000004'
+        booking_id            = 'B0004'
         item_id               = '0001'
         product_id            = 'FLIGHT-BIZ'
         quantity              = '1.000'
@@ -362,7 +362,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000004'
+        booking_id            = 'B0004'
         item_id               = '0002'
         product_id            = 'HOTEL-EXE'
         quantity              = '2.000'
@@ -372,9 +372,9 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         last_changed_at       = lv_now
         local_last_changed_at = lv_now )
 
-      " Items for Booking 0000000005
+      " Items for Booking B0005
       ( client                = sy-mandt
-        booking_id            = '0000000005'
+        booking_id            = 'B0005'
         item_id               = '0001'
         product_id            = 'HAWAII-PKG'
         quantity              = '1.000'
@@ -385,7 +385,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000005'
+        booking_id            = 'B0005'
         item_id               = '0002'
         product_id            = 'SPA-DAY'
         quantity              = '1.000'
@@ -396,7 +396,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000006'
+        booking_id            = 'B0006'
         item_id               = '0001'
         product_id            = 'FLIGHT-002'
         quantity              = '1.000'
@@ -407,7 +407,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000007'
+        booking_id            = 'B0007'
         item_id               = '0001'
         product_id            = 'CRUISE-7D'
         quantity              = '2.000'
@@ -418,7 +418,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         local_last_changed_at = lv_now )
 
       ( client                = sy-mandt
-        booking_id            = '0000000008'
+        booking_id            = 'B0008'
         item_id               = '0001'
         product_id            = 'TOUR-CITY'
         quantity              = '1.000'

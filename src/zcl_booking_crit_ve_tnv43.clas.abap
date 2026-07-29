@@ -21,7 +21,7 @@ CLASS zcl_booking_crit_ve_tnv43 IMPLEMENTATION.
     lt_booking = CORRESPONDING #( it_original_data ).
 
     LOOP AT lt_booking ASSIGNING FIELD-SYMBOL(<b>).
-        <b>-VEStatusCriticality = SWITCH #( <b>-OverallStatus
+        <b>-StatusCriticality = SWITCH #( <b>-OverallStatus
                                           WHEN 'N' THEN 2
                                           WHEN 'A' THEN 3
                                           WHEN 'X' THEN 1

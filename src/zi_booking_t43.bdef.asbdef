@@ -16,7 +16,6 @@ early numbering
   update;
   delete;
 
-
   field ( readonly ) BookingId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
   field ( mandatory ) CustomerId, BookingDate;
 

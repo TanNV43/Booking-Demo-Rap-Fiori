@@ -8,8 +8,7 @@
                                     role: #AXIS_1,
                                     asDataPoint: true }] }]
 
-// T01 - Object Page header: title area of the detail page.
-// 'imageUrl' could point to an element containing a picture URL (see T16 note).
+
 @UI.headerInfo: {
   typeName:       'Booking',
   typeNamePlural: 'Bookings',
