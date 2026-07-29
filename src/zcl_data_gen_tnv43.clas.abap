@@ -9,11 +9,13 @@ CLASS zcl_data_gen_tnv43 DEFINITION
   PROTECTED SECTION.
   PRIVATE SECTION.
     METHODS:
-      clear_all_tables IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
-      fill_status      IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
-      fill_customer    IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
-      fill_booking     IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
-      fill_booking_item IMPORTING out TYPE REF TO if_oo_adt_classrun_out.
+      clear_all_tables      IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_status           IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_confirm_master   IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_priority_master  IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_customer         IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_booking          IMPORTING out TYPE REF TO if_oo_adt_classrun_out,
+      fill_booking_item     IMPORTING out TYPE REF TO if_oo_adt_classrun_out.
 ENDCLASS.
 
 
@@ -23,11 +25,13 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
     out->write( |=== START GENERATE DATA ===| ).
 
-    clear_all_tables( out ).
-    fill_status(       out ).
-    fill_customer(     out ).
-    fill_booking(      out ).
-    fill_booking_item( out ).
+    clear_all_tables(     out ).
+    fill_status(          out ).
+    fill_confirm_master(  out ).
+    fill_priority_master( out ).
+    fill_customer(        out ).
+    fill_booking(         out ).
+    fill_booking_item(    out ).
 
     out->write( |=== DONE ===| ).
   ENDMETHOD.
@@ -38,6 +42,8 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
     DELETE FROM zbooking_t43.
     DELETE FROM zcustomer_tnv43.
     DELETE FROM zstatus_tnv43.
+    DELETE FROM zconfirm_tnv43.
+    DELETE FROM zpriority_tnv43.
 
     COMMIT WORK.
     out->write( |Cleared all tables.| ).
@@ -57,6 +63,37 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
     COMMIT WORK.
 
     out->write( |Inserted { sy-dbcnt } status records.| ).
+  ENDMETHOD.
+
+
+  METHOD fill_confirm_master.
+    DATA lt_confirm TYPE TABLE OF zconfirm_tnv43.
+
+    lt_confirm = VALUE #(
+      ( confirm_flag = 'N'  confirm_text = 'Not Confirmed' )
+      ( confirm_flag = 'Y' confirm_text = 'Confirmed' )
+    ).
+
+    INSERT zconfirm_tnv43 FROM TABLE @lt_confirm.
+    COMMIT WORK.
+
+    out->write( |Inserted { sy-dbcnt } confirm master records.| ).
+  ENDMETHOD.
+
+
+  METHOD fill_priority_master.
+    DATA lt_priority TYPE TABLE OF zpriority_tnv43.
+
+    lt_priority = VALUE #(
+      ( priority = '1' priority_text = 'Low' )
+      ( priority = '2' priority_text = 'Medium' )
+      ( priority = '3' priority_text = 'High' )
+    ).
+
+    INSERT zpriority_tnv43 FROM TABLE @lt_priority.
+    COMMIT WORK.
+
+    out->write( |Inserted { sy-dbcnt } priority master records.| ).
   ENDMETHOD.
 
 
@@ -92,7 +129,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '120.00'
         currency_code         = 'USD'
         overall_status        = 'N'
-        confirm_flag          = ''
+        confirm_flag          = 'N'
         priority              = '2'
         customer_rating       = '4.5'
         completion_pct        = 20
@@ -110,7 +147,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '350.00'
         currency_code         = 'USD'
         overall_status        = 'A'
-        confirm_flag          = 'X'
+        confirm_flag          = 'Y'
         priority              = '1'
         customer_rating       = '5.0'
         completion_pct        = 100
@@ -128,7 +165,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '500.00'
         currency_code         = 'USD'
         overall_status        = 'N'
-        confirm_flag          = ''
+        confirm_flag          = 'N'
         priority              = '3'
         customer_rating       = '3.5'
         completion_pct        = 50
@@ -146,7 +183,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '800.00'
         currency_code         = 'USD'
         overall_status        = 'A'
-        confirm_flag          = 'X'
+        confirm_flag          = 'Y'
         priority              = '2'
         customer_rating       = '4.0'
         completion_pct        = 100
@@ -164,7 +201,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '650.00'
         currency_code         = 'USD'
         overall_status        = 'N'
-        confirm_flag          = ''
+        confirm_flag          = 'N'
         priority              = '1'
         customer_rating       = '4.5'
         completion_pct        = 30
@@ -183,7 +220,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '450.00'
         currency_code         = 'USD'
         overall_status        = 'X'
-        confirm_flag          = ''
+        confirm_flag          = 'Y'
         priority              = '2'
         customer_rating       = '2.0'
         completion_pct        = 0
@@ -201,7 +238,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '900.00'
         currency_code         = 'USD'
         overall_status        = 'X'
-        confirm_flag          = ''
+        confirm_flag          = 'N'
         priority              = '3'
         customer_rating       = '1.5'
         completion_pct        = 0
@@ -219,7 +256,7 @@ CLASS zcl_data_gen_tnv43 IMPLEMENTATION.
         total_price           = '280.00'
         currency_code         = 'USD'
         overall_status        = 'X'
-        confirm_flag          = ''
+        confirm_flag          = 'N'
         priority              = '1'
         customer_rating       = '3.0'
         completion_pct        = 0

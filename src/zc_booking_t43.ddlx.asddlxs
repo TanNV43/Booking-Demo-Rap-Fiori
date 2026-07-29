@@ -1,5 +1,13 @@
 @Metadata.layer: #CORE
 
+@UI.chart: [{ qualifier: 'PriceBullet',
+              title: 'Price Chart',
+              chartType: #BULLET,
+              measures: ['TotalPrice'],
+              measureAttributes: [{ measure: 'TotalPrice',
+                                    role: #AXIS_1,
+                                    asDataPoint: true }] }]
+
 // T01 - Object Page header: title area of the detail page.
 // 'imageUrl' could point to an element containing a picture URL (see T16 note).
 @UI.headerInfo: {
@@ -39,10 +47,10 @@ annotate entity ZC_BOOKING_T43
         position: 10 
     },
     { 
-        id: 'FriceData',   
+        id: 'PriceData',   
         parentId: 'General',
         type: #FIELDGROUP_REFERENCE,
-        targetQualifier: 'FriceData',
+        targetQualifier: 'PriceData',
         label: 'Frice Data', 
         position: 20 
     },
@@ -75,7 +83,7 @@ annotate entity ZC_BOOKING_T43
     @EndUserText.label: 'Booking ID'
     @UI.lineItem:       [{ position: 10, importance: #HIGH }]       // List Report
     @UI.identification: [{ position: 10 }]                          // Field Object Page
-    @UI.selectionField: [{ position: 10 }]                          // Filterbar
+//    @UI.selectionField: [{ position: 10 }]                          // Filterbar
     @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 10 }]
     @Search.defaultSearchElement: true                              // tham gia search
     @Search.fuzzinessThreshold: 0.8
@@ -87,17 +95,16 @@ annotate entity ZC_BOOKING_T43
     @UI.selectionField: [{ position: 20 }]
     @Consumption.valueHelpDefinition: [{ 
         entity              : { name: 'ZI_CUSTOMER_TNV43', element: 'CustomerId' },
-        useForValidation    : true
-     }]
+        useForValidation    : true,
+        additionalBinding   : [{ 
+            localElement: 'CustomerCity', 
+            element: 'City',
+            usage: #FILTER
+        }]
+    }]
     @Consumption.filter.selectionType: #SINGLE
     @UI.textArrangement: #TEXT_FIRST
-//    @Search.defaultSearchElement: true
-//    @Search.fuzzinessThreshold: 0.8
-//    @Consumption.filter.mandatory: true
     CustomerId;
-    
-    @UI.hidden: true
-    CustomerName;
     
     @EndUserText.label: 'E-Mail Address'
     @UI.fieldGroup:     [{ qualifier: 'CustomerInfo', position: 20 }]
@@ -105,28 +112,59 @@ annotate entity ZC_BOOKING_T43
     
     @EndUserText.label: 'City'
     @UI.fieldGroup:     [{ qualifier: 'CustomerInfo', position: 30 }]
+    @UI.selectionField: [{ position: 35 }]
+    @Consumption.valueHelpDefinition: [{ 
+        entity: { name: 'ZI_CITY_VH_TNV43', element: 'City' }
+    }]
     CustomerCity;
     
     @EndUserText.label: 'Booking Date'
-    @UI.lineItem:       [{ position: 30 }]
+    @UI.lineItem:       [{ position: 30, importance: #HIGH }]
     @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 20 }]
     @UI.selectionField: [{ position: 30 }]
     @Consumption.filter.selectionType: #INTERVAL
     BookingDate;
     
-    @UI.fieldGroup: [{ qualifier: 'BasicData', position: 40 }]
-    Description;
-    
     @EndUserText.label: 'Total Price'
-    @UI.lineItem:       [{ position: 40 }]
-    @UI.fieldGroup:     [{ qualifier: 'FriceData', position: 10 }]
-    @UI.dataPoint:       { qualifier: 'PriceDP', title: 'Total Price' }
+    @UI.lineItem:       [{ position: 40, importance: #HIGH }]
+    @UI.fieldGroup:     [{ qualifier: 'PriceData', position: 10 }]
+    @UI.dataPoint:      { qualifier: 'PriceDP', 
+                          title: 'Total Price',
+                          targetValue: 1000,
+                          minimumValue: 0,
+                          criticalityCalculation: {
+                              improvementDirection: #TARGET,
+                              deviationRangeLowValue: 300,
+                              toleranceRangeLowValue: 500,
+                              toleranceRangeHighValue: 1000,
+                              deviationRangeHighValue: 1200
+                          } }
     TotalPrice;
 
     @EndUserText.label: 'Currency'
-    @Consumption.valueHelpDefinition: [{ entity: { name: 'I_CurrencyStdVH', element: 'Curency' }}]
-    @UI.fieldGroup:     [{ qualifier: 'FriceData', position: 20 }]
+    @Consumption.valueHelpDefinition: [{ entity: { name: 'I_CurrencyStdVH', element: 'Currency' }}]
+    @UI.fieldGroup:     [{ qualifier: 'PriceData', position: 20 }]
+    @UI.lineItem:       [{ position: 42, 
+                           type: #AS_CHART,
+                           valueQualifier: 'PriceBullet',
+                           label: 'Price Chart' }]
     CurrencyCode;
+    
+    @EndUserText.label: 'Priority'
+    @UI.lineItem:       [{ position: 45, 
+                           importance: #HIGH,
+                           criticality: 'PriorityCriticality',
+                           criticalityRepresentation: #WITH_ICON }]
+    @UI.identification: [{ position: 45 }]
+    @UI.selectionField: [{ position: 60 }]
+    @Consumption.valueHelpDefinition: [{ 
+        entity: { name: 'ZI_PRIORITY_VH_TNV43', element: 'Priority' },
+        useForValidation: true 
+    }]
+    Priority;
+    
+    @UI.hidden: true
+    PriorityCriticality;
     
     @EndUserText.label: 'Status'
     @UI.lineItem:       [{ position: 50, 
@@ -137,8 +175,46 @@ annotate entity ZC_BOOKING_T43
     @UI.textArrangement: #TEXT_ONLY
     OverallStatus;
     
+    @EndUserText.label: 'Confirmed'
+    @UI.lineItem:       [{ position: 55, importance: #HIGH }]
+    @UI.identification: [{ position: 55 }]
+    @UI.selectionField: [{ position: 50 }]
+    @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 45 }]
+    @Consumption.valueHelpDefinition: [{ 
+        entity: { name: 'ZI_CONFIRM_VH_TNV43', element: 'ConfirmFlag' },
+        useForValidation: true 
+    }]
+    @UI.textArrangement: #TEXT_ONLY
+    ConfirmFlag;
+    
     @UI.hidden: true
     StatusCriticality;
     
+    @EndUserText.label: 'Rating'
+    @UI.lineItem:       [{ position: 60, 
+                           importance: #HIGH,
+                           type: #AS_DATAPOINT }]
+    @UI.dataPoint:      { title: 'Customer Rating',
+                          targetValue: 5,
+                          visualization: #RATING }
+    CustomerRating;
     
+    @EndUserText.label: 'Completion'
+    @UI.lineItem:       [{ position: 65, 
+                           importance: #HIGH,
+                           type: #AS_DATAPOINT }]
+    @UI.dataPoint:      { title: 'Completion',
+                          targetValue: 100,
+                          visualization: #PROGRESS }
+    CompletionPct;
+    
+    @EndUserText.label: 'Contact'
+    @UI.lineItem:       [{ position: 70, importance: #HIGH }]
+    @UI.fieldGroup:     [{ qualifier: 'CustomerInfo', position: 5 }]
+    CustomerName;
+    
+    @EndUserText.label: 'Description'
+    @UI.lineItem:       [{ position: 80, importance: #HIGH }]
+    @UI.fieldGroup:     [{ qualifier: 'BasicData', position: 40 }]
+    Description;
 }
